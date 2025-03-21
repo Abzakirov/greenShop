@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@import "tailwindcss";
+
+* {
+    font-family: "Roboto", sans-serif;
+}
+
+
+.container2 {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1440px;
+    padding: 20px;
+}
+
+/* Slick dots button */
+.slick-dots li button {
+    background-color: rgba(70, 163, 88, 0.3) !important;
+}
+
+/* Slick active button */
+.slick-dots .slick-active button {
+    background-color: #46a358 !important;
+}
+
+/* Ant slider track */
+.ant-slider-track {
+    border: 2px solid #46a358;
+}
+
+/* Ant slider handler */
+.ant-slider .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px #46a358;
+}
+
+/* Ant slider handler hover */
+.ant-slider .ant-slider-handle:hover::after {
+    box-shadow: 0 0 0 2px #46a358;
+}
+
+/* Ant select selection item */
+.ant-select-selection-item {
+    font-size: 15px;
+    color: #3d3d3d;
+}
+
+/* Ant radio checked inner */
+.ant-radio-wrapper .ant-radio-checked .ant-radio-inner {
+    background-color: #46a358;
+    border-color: #46a358;
+}
+
+/* Ant tabs active tab button */
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #46a358;
+    border-color: #46a358 !important;
+}
+
+/* Ant tabs ink bar */
+.ant-tabs .ant-tabs-ink-bar {
+    background: #46a358 !important;
+}
+
+/* Ant select selector */
+.ant-select-selector {
+    border-color: #46a358 !important;
+}
+
+
+
+@media(max-width:1485px) {
+    .container2 {
+        max-width: 1440px;
+    }
+}
+
+button {
+    cursor: pointer;
+}
+
+.borders {
+    border-bottom: 2px solid rgba(70, 163, 88, 0.50) !important;
+}
