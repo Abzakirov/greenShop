@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { Button, Form, Input } from "antd";
-
+import { LoadingOutlined } from "@ant-design/icons";
 import Google from "../../../assets/google.svg";
 import Facebook from "../../../assets/facebook.svg";
 import { FieldType } from "../../../@types";
 import useLoginMutation from "../../../hook/useQueryHandler/useQueryAction";
 
+
 const Login = () => {
   const [emailFocus, setEmailFocus] = useState(false);
   const [passwordFocus, setPasswordFocus] = useState(false);
-  const { mutate } = useLoginMutation();
+  const { mutate, isLoading } = useLoginMutation();
 
-  const onFinish = (values: FieldType) => {
-    mutate(values);
+  const loginSubmit = (e: FieldType) => {
+    mutate({ data: e });
   };
 
   return (
@@ -23,7 +24,9 @@ const Login = () => {
         </h3>
 
         <Form
-          onFinish={onFinish}
+          onFinish={loginSubmit}
+          initialValues={{ remember: true }}
+          autoComplete="off"
           className="flex flex-col gap-3 items-center w-full"
         >
           <Form.Item<FieldType>
@@ -74,9 +77,10 @@ const Login = () => {
           <Form.Item className="w-full">
             <button
               type="submit"
-              className="bg-[#46a358] text-white w-full h-[40px] rounded-md text-[18px] mt-3"
+              className="bg-[#46a358] text-white w-full h-[40px] rounded-md text-[18px] mt-3 flex items-center justify-center"
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? <LoadingOutlined className="text-xl" /> : "Login"}
             </button>
           </Form.Item>
         </Form>
@@ -89,13 +93,13 @@ const Login = () => {
 
         <div className="flex items-center justify-center flex-col gap-3">
           <Button className="!w-[380px] !h-[40px] flex items-center justify-center gap-2">
-            <img src={Google} alt="" />
+            <img src={Google} alt="Google" />
             <h3 className="text-[#727272] text-[13px] font-medium">
               Login with Google
             </h3>
           </Button>
           <Button className="!w-[380px] !h-[40px] flex items-center justify-center gap-2">
-            <img src={Facebook} alt="" />
+            <img src={Facebook} alt="Facebook" />
             <h3 className="text-[#727272] text-[13px] font-medium">
               Login with Facebook
             </h3>

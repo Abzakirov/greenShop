@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import useAxios from "../useAxios";
+import { useAxios } from "../useAxios";
 
 interface UseQueryHandlerType {
     pathname: string;
@@ -9,19 +9,19 @@ interface UseQueryHandlerType {
 
 const useQueryHandler = ({ pathname, url, params }: UseQueryHandlerType) => {
     const { request } = useAxios();
-
-    return useQuery({
-        queryKey: [pathname, params],
+    return useQuery([pathname], {
         queryFn: async () => {
             try {
-                const response = await request({ url, params, method: "GET" });
-                return response;
-            } catch (error: any) {
-                console.error("❌ useQueryHandler error:", error?.response?.data || error.message);
+                return await request({ url, params });
+            } catch (error) {
+                console.error("Query error:", error);
                 throw error;
             }
-        }
+        },
+        onError: (error) => {
+            console.error("Fetching data failed:", error);
+        },
     });
 };
 
-export default useQueryHandler;
+export { useQueryHandler };

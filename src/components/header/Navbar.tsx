@@ -14,13 +14,13 @@ import { IoMenuOutline, IoCloseSharp } from "react-icons/io5";
 
 // images
 import Logo from "../../assets/logo.png";
-import { useReduxDespatch } from "../../hook/useRedux";
+import { useReduxDispatch } from "../../hook/useRedux";
 import { setModalAutchorization } from "../../store/modalSlice/Modal";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState<boolean>(false);
   const { pathname } = useLocation();
-  const dispatch = useReduxDespatch();
+  const dispatch = useReduxDispatch();
 
   return (
     <div>
@@ -51,8 +51,8 @@ const Navbar: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="flex items-center gap-5">
-            <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-9">
+            <div className="flex gap-7 items-center">
               <button>
                 <Search />
               </button>

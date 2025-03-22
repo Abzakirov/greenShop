@@ -4,13 +4,13 @@ import { Modal } from "antd";
 import Login from "../login";
 import Register from "../register";
 import { useState } from "react";
-import { useReduxDespatch, useReduxSelector } from "../../../hook/useRedux";
+import { useReduxDispatch, useReduxSelector } from "../../../hook/useRedux";
 import { setModalAutchorization } from "../../../store/modalSlice/Modal";
 
 const AuthorizationModal = () => {
   const [active, setActive] = useState(true);
   const { ModalAutchorization } = useReduxSelector((state) => state.modalSlice);
-  const dispatch = useReduxDespatch();
+  const dispatch = useReduxDispatch();
   return (
     <Modal
       open={ModalAutchorization}
