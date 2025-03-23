@@ -1,11 +1,9 @@
-// hooks
 import { useState } from "react";
 
 // components
 import Search from "../../icons/Search";
 import Shops from "../../icons/Shop";
 import Badges from "../../gen/badge/Badge";
-
 import { NavLink, useLocation } from "react-router-dom";
 
 // icons
@@ -18,9 +16,10 @@ import { useReduxDispatch } from "../../hook/useRedux";
 import { setModalAutchorization } from "../../store/modalSlice/Modal";
 
 const Navbar: React.FC = () => {
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const dispatch = useReduxDispatch();
+  const user = JSON.parse(localStorage.getItem("user") as string);
 
   return (
     <div>
@@ -29,7 +28,7 @@ const Navbar: React.FC = () => {
           <div className="!w-[100px]">
             <img src={Logo} alt="Logo" />
           </div>
-          <div className="items-center max-[709px]:hidden">
+          <nav className="items-center max-[709px]:hidden">
             <div className="flex items-center gap-5">
               {[
                 { name: "Home", path: "/" },
@@ -50,7 +49,7 @@ const Navbar: React.FC = () => {
                 </NavLink>
               ))}
             </div>
-          </div>
+          </nav>
           <div className="flex items-center gap-9">
             <div className="flex gap-7 items-center">
               <button>
@@ -62,10 +61,9 @@ const Navbar: React.FC = () => {
             </div>
             <button
               onClick={() => dispatch(setModalAutchorization())}
-              className="flex items-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2 max-[550px]:hidden"
+              className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2 max-[550px]:hidden"
             >
-              <CiLogin />
-              Login
+              {user ? user?.name : <><CiLogin /> Login</>}
             </button>
             <button
               className="hidden max-[550px]:flex"
@@ -90,7 +88,7 @@ const Navbar: React.FC = () => {
         >
           <IoCloseSharp size={30} />
         </button>
-        <div className="flex flex-col gap-5 text-center">
+        <nav className="flex flex-col gap-5 text-center">
           <NavLink to="/" className="text-[#fff] text-[16px] font-sans">
             Home
           </NavLink>
@@ -106,11 +104,10 @@ const Navbar: React.FC = () => {
           <NavLink to="/blogs" className="text-[#fff] text-[16px] font-sans">
             Blogs
           </NavLink>
-          <button className="flex items-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2">
-            <CiLogin />
-            Login
+          <button className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2">
+          {user ? user?.name : <><CiLogin /> Login</>}
           </button>
-        </div>
+        </nav>
       </div>
     </div>
   );

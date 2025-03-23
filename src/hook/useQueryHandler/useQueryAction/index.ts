@@ -26,12 +26,17 @@ const useLoginMutation = () => {
             }
         },
         onSuccess: (data) => {
-            dispatch(setModalAutchorization())
-            notify("login")
-            let { token } = data.data
-            console.log("Login successful:", data);
-            localStorage.setItem("token",token)
 
+            let { token, user } = data
+            console.log("Login successful:", data);
+            localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(user))
+            console.log(user);
+            console.log(token);
+
+
+            notify("login")
+            dispatch(setModalAutchorization())
 
         },
         onError: (error) => {
@@ -41,3 +46,38 @@ const useLoginMutation = () => {
 };
 
 export default useLoginMutation;
+
+export const useRegisterMutation = () => {
+    const { request } = useAxios();
+
+    return useMutation({
+        mutationFn: async (data: object) => {
+            try {
+                const response = await request({
+                    url: "user/sign-up",
+                    method: "POST",
+                    body: data,
+                });
+                return response;
+            } catch (error) {
+                console.error("Registration error:", error);
+                throw error;
+            }
+        },
+        onSuccess: (data) => {
+
+           let { token, user } = data
+           const dispatch = useReduxDispatch();
+           const notify = NotificationApi()
+            console.log("Register successful:", data);
+            localStorage.setItem("token", token)
+            localStorage.setItem("user", JSON.stringify(user))
+            notify("register")
+            dispatch(setModalAutchorization())
+
+        },
+        onError: (error) => {
+            console.error("Login failed:", error);
+        },
+    });
+};
