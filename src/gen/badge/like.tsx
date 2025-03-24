@@ -1,20 +1,18 @@
-
-
 import React from "react";
 import { Badge } from "antd";
 
-interface BadgesProps {
+interface LikeBadgeProps {
   count: number;
   children: React.ReactNode;
   onClick?: () => void;
 }
 
-const Badges: React.FC<BadgesProps> = ({ count, children, onClick }) => (
-  <button onClick={onClick} className="relative">
+const LikeBadge: React.FC<LikeBadgeProps> = ({ count, children, onClick }) => (
+  <div onClick={onClick} className="cursor-pointer">
     <Badge count={count} offset={[0, 5]} color="green">
       <span className="flex items-center">{children}</span>
     </Badge>
-  </button>
+  </div>
 );
 
-export default Badges;
+export default LikeBadge;

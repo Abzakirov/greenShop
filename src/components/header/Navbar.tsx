@@ -4,22 +4,27 @@ import { useState } from "react";
 import Search from "../../icons/Search";
 import Shops from "../../icons/Shop";
 import Badges from "../../gen/badge/Badge";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { useReduxDispatch } from "../../hook/useRedux";
+import { setModalAutchorization } from "../../store/modalSlice/Modal";
+import LikeBadge from "../../gen/badge/like";
+
 
 // icons
 import { CiLogin } from "react-icons/ci";
 import { IoMenuOutline, IoCloseSharp } from "react-icons/io5";
+import { HeartOutlined } from "@ant-design/icons";
 
 // images
 import Logo from "../../assets/logo.png";
-import { useReduxDispatch } from "../../hook/useRedux";
-import { setModalAutchorization } from "../../store/modalSlice/Modal";
+
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const dispatch = useReduxDispatch();
   const user = JSON.parse(localStorage.getItem("user") as string);
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -50,20 +55,30 @@ const Navbar: React.FC = () => {
               ))}
             </div>
           </nav>
-          <div className="flex items-center gap-9">
-            <div className="flex gap-7 items-center">
-              <button>
+          <div className="flex items-center gap-9 max-[500px]:gap-3">
+            <div className="flex gap-7 max-[500px]:gap-5 items-center">
+              <button className="max-[300px]:hidden">
                 <Search />
               </button>
-              <Badges count={3}>
+              <Badges onClick={() => navigate("/shop")} count={3}>
                 <Shops />
               </Badges>
+              <LikeBadge onClick={() => navigate("/like")} count={3}>
+                <HeartOutlined className="text-2xl !text-black" />
+              </LikeBadge>
             </div>
             <button
               onClick={() => dispatch(setModalAutchorization())}
               className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2 max-[550px]:hidden"
+              disabled={!!user}
             >
-              {user ? user?.name : <><CiLogin /> Login</>}
+              {user ? (
+                user?.name
+              ) : (
+                <>
+                  <CiLogin /> Login
+                </>
+              )}
             </button>
             <button
               className="hidden max-[550px]:flex"
@@ -104,8 +119,17 @@ const Navbar: React.FC = () => {
           <NavLink to="/blogs" className="text-[#fff] text-[16px] font-sans">
             Blogs
           </NavLink>
-          <button className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2">
-          {user ? user?.name : <><CiLogin /> Login</>}
+          <button   onClick={() => dispatch(setModalAutchorization())}
+          className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2"
+          disabled={!!user}
+          >
+            {user ? (
+              user?.name
+            ) : (
+              <>
+                <CiLogin /> Login
+              </>
+            )}
           </button>
         </nav>
       </div>

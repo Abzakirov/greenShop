@@ -4,6 +4,7 @@ import Shop from "../page/shop";
 import MainLayout from "../layout/MainLayout";
 import PlantCare from "../page/plant-care";
 import Blogs from "../page/blogs";
+import Like from "../page/like/Like";
 
 export const RouterComponents = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ export const RouterComponents = createBrowserRouter([
       {
         path: "/shop",
         element: <Shop />,
+      },
+      {
+        path: "/like",
+        element: <Like />,
       },
       {
         path: "/plant-care",
