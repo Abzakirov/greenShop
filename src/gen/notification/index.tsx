@@ -1,6 +1,12 @@
 import { notification } from "antd";
 
-type NotificationApiType = "login" | "register";
+type NotificationApiType =
+  | "login"
+  | "register"
+  | "login_google"
+  | 406
+  | 409
+  | "register_google";
 
 const NotificationApi = () => {
   const notify = (type: NotificationApiType) => {
@@ -9,6 +15,14 @@ const NotificationApi = () => {
         return notification.success({ message: "Login successful" });
       case "register":
         return notification.success({ message: "Register successful" });
+      case "login_google":
+        return notification.success({ message: "Login width  successful" });
+      case 406:
+        return notification.error({ message: "Email already exsit " });
+      case 409:
+        return notification.error({ message: "Email already exsit " });
+        case "register_google":
+          return notification.success({ message: "Register width  successful" });
       default:
         return;
     }

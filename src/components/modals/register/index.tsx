@@ -4,7 +4,10 @@ import { LoadingOutlined } from "@ant-design/icons";
 import Google from "../../../assets/google.svg";
 import Facebook from "../../../assets/facebook.svg";
 import { RegisterType } from "../../../@types";
-import { useRegisterMutation } from "../../../hook/useQueryHandler/useQueryAction";
+import {
+  useRegisterMutation,
+  useRegisterWithGoogle,
+} from "../../../hook/useQueryHandler/useQueryAction";
 
 const Register = () => {
   const [emailFocus, setEmailFocus] = useState(false);
@@ -17,6 +20,7 @@ const Register = () => {
   const registerSubmit = (values: RegisterType) => {
     mutate(values);
   };
+  const { mutate: registerMutate } = useRegisterWithGoogle();
 
   return (
     <div>
@@ -149,7 +153,10 @@ const Register = () => {
         </div>
 
         <div className="flex items-center justify-center flex-col gap-3">
-          <Button className="w-[380px] max-w-full sm:w-full h-[40px] flex items-center justify-center gap-2">
+          <Button
+            onClick={() => registerMutate()}
+            className="w-[380px] max-w-full sm:w-full h-[40px] flex items-center justify-center gap-2"
+          >
             <img src={Google} alt="Google" />
             <h3 className="text-[#727272] text-[13px] font-medium">
               Continue with Google

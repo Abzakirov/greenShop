@@ -3,16 +3,14 @@ import { Carousel } from "antd";
 import { swiperOptions } from "../../../utils/swiper";
 
 const SectionOne: React.FC = () => {
-  const onChange = (currentSlide: number) => {
-    console.log(currentSlide);
-  };
+
 
   const { btn, greens, decr, imgchild, imgparent, makebatter, welcome } =
     swiperOptions;
 
   return (
     <div className="w-full mx-auto">
-      <Carousel afterChange={onChange} autoplay className="bg-[#F5F5F580] p-5 overflow-hidden">
+      <Carousel  autoplay className="bg-[#F5F5F580] p-5 overflow-hidden">
         {[...Array(3)].map((_, index) => (
           <div key={index}>
             <div className="flex flex-col md:flex-row items-center justify-between gap-5 w-full">

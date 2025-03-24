@@ -87,25 +87,26 @@ export const useLoginWithGoogle = () => {
     const { request } = useAxios();
     const dispatch = useReduxDispatch();
     const notify = NotificationApi();
-    
+
     return useMutation({
         mutationFn: async () => {
             const response = await signInWithGoogle();
             const email = response.user.email;
-            
+
             try {
                 return await request({ url: "user/sign-in/google", method: "POST", body: { email } });
             } catch (error) {
-                    alert("Этот email уже зарегистрирован! Попробуйте войти.");
-                    throw new Error("User already exists.");
+                notify(406);
+                notify(409);
+                throw new Error("User already exists.");
             }
         },
         onSuccess: (data) => {
             const { token, user } = data;
             localStorage.setItem("token", token);
             localStorage.setItem("user", JSON.stringify(user));
-            console.log("Register successful:", data);
-            notify("register");
+            console.log("Login width google successful:", data);
+            notify("login_google");
             dispatch(setModalAutchorization());
         },
         onError: (error) => {
@@ -115,3 +116,36 @@ export const useLoginWithGoogle = () => {
     });
 };
 
+export const useRegisterWithGoogle = () => {
+    const { request } = useAxios();
+    const dispatch = useReduxDispatch();
+    const notify = NotificationApi();
+
+    return useMutation({
+        mutationFn: async () => {
+            const response = await signInWithGoogle();
+            const email = response.user.email;
+
+            try {
+                return await request({ url: "user/sign-up/google", method: "POST", body: { email } });
+            } catch (error) {
+                notify(406)
+                notify(409)
+                throw new Error("User already exists.");
+            }
+        },
+        onSuccess: (data) => {
+            const { token, user } = data;
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+            console.log("Register successful:", data);
+            notify("register_google");
+            dispatch(setModalAutchorization());
+        },
+        onError: (error) => {
+            console.error("Google login error:", error);
+            notify(406)
+            notify(409)
+        }
+    });
+};
