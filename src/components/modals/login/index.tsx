@@ -19,7 +19,7 @@ const Login = () => {
   return (
     <div>
       <div className="flex flex-col gap-4 justify-center">
-        <h3 className="text-[#3D3D3D] text-[13px] font-sans pl-5">
+        <h3 className="text-[#3D3D3D] text-[13px] font-sans pl-5 max-[400px]:text-center">
           Enter your username and password to login.
         </h3>
 
@@ -86,9 +86,9 @@ const Login = () => {
         </Form>
 
         <div className="flex items-center justify-center mb-5 mt-5 gap-4">
-          <div className="w-[30%]  max-[350px]:w-[25%] h-[2px] bg-[#eaeaea]"></div>
+          <div className="w-[30%]  max-[350px]:w-[20%] h-[2px] bg-[#eaeaea]"></div>
           <p className="text-[#3D3D3D] text-[14px]">Or login with</p>
-          <div className="w-[30%] max-[350px]:w-[25%]  h-[2px] bg-[#eaeaea]"></div>
+          <div className="w-[30%] max-[350px]:w-[20%]  h-[2px] bg-[#eaeaea]"></div>
         </div>
 
         <div className="flex items-center justify-center flex-col gap-3">

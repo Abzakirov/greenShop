@@ -49,7 +49,8 @@ export default useLoginMutation;
 
 export const useRegisterMutation = () => {
     const { request } = useAxios();
-
+    const dispatch = useReduxDispatch();
+    const notify = NotificationApi()
     return useMutation({
         mutationFn: async (data: object) => {
             try {
@@ -67,11 +68,9 @@ export const useRegisterMutation = () => {
         onSuccess: (data) => {
 
            let { token, user } = data
-           const dispatch = useReduxDispatch();
-           const notify = NotificationApi()
-            console.log("Register successful:", data);
-            localStorage.setItem("token", token)
-            localStorage.setItem("user", JSON.stringify(user))
+           localStorage.setItem("token", token)
+           localStorage.setItem("user", JSON.stringify(user))
+           console.log("Register successful:", data);
             notify("register")
             dispatch(setModalAutchorization())
 

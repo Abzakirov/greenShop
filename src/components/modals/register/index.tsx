@@ -21,7 +21,7 @@ const Register = () => {
   return (
     <div>
       <div className="flex flex-col gap-4 justify-center">
-        <h3 className="text-[#3D3D3D] text-[13px] font-sans pl-5">
+        <h3 className="text-[#3D3D3D] text-[13px] font-sans pl-5 max-[400px]:text-center">
           Enter your username and password to login.
         </h3>
 
@@ -34,7 +34,7 @@ const Register = () => {
           <Form.Item<RegisterType>
             name="name"
             rules={[{ required: true, message: "Please enter your name!" }]}
-            className="w-[400px] !max-[470px]:w-full"
+            className="w-full max-w-[400px]"
           >
             <div
               className={`h-[40px] w-full rounded-md border transition-all hover:border-[#46a358] ${
@@ -43,7 +43,7 @@ const Register = () => {
             >
               <Input
                 placeholder="Enter your name"
-                className="!h-full !w-full !border-none focus:!shadow-none"
+                className="h-full w-full border-none focus:shadow-none"
                 onFocus={() => setUsernameFocus(true)}
                 onBlur={() => setUsernameFocus(false)}
               />
@@ -53,7 +53,7 @@ const Register = () => {
           <Form.Item<RegisterType>
             name="surname"
             rules={[{ required: true, message: "Please enter your surname!" }]}
-            className="w-[400px] !max-[470px]:w-full"
+            className="w-full max-w-[400px]"
           >
             <div
               className={`h-[40px] w-full rounded-md border transition-all hover:border-[#46a358] ${
@@ -62,7 +62,7 @@ const Register = () => {
             >
               <Input
                 placeholder="Enter your surname"
-                className="!h-full !w-full !border-none focus:!shadow-none"
+                className="h-full w-full border-none focus:shadow-none"
                 onFocus={() => setSurnameFocus(true)}
                 onBlur={() => setSurnameFocus(false)}
               />
@@ -75,7 +75,7 @@ const Register = () => {
               { required: true, message: "Please enter your email!" },
               { type: "email", message: "Invalid email format!" },
             ]}
-            className="w-[400px] !max-[470px]:w-full"
+            className="w-full max-w-[400px]"
           >
             <div
               className={`h-[40px] w-full rounded-md border transition-all hover:border-[#46a358] ${
@@ -84,7 +84,7 @@ const Register = () => {
             >
               <Input
                 placeholder="Enter your email"
-                className="!h-full !w-full !border-none focus:!shadow-none"
+                className="h-full w-full border-none focus:shadow-none"
                 onFocus={() => setEmailFocus(true)}
                 onBlur={() => setEmailFocus(false)}
               />
@@ -94,7 +94,7 @@ const Register = () => {
           <Form.Item<RegisterType>
             name="password"
             rules={[{ required: true, message: "Please enter your password!" }]}
-            className="w-[400px] !max-[470px]:w-full"
+            className="w-full max-w-[400px]"
           >
             <div
               className={`h-[40px] w-full rounded-md border transition-all hover:border-[#46a358] ${
@@ -103,7 +103,7 @@ const Register = () => {
             >
               <Input.Password
                 placeholder="**********"
-                className="!h-full !w-full !border-none focus:!shadow-none"
+                className="h-full w-full border-none focus:shadow-none"
                 onFocus={() => setPasswordFocus(true)}
                 onBlur={() => setPasswordFocus(false)}
               />
@@ -115,7 +115,7 @@ const Register = () => {
             rules={[
               { required: true, message: "Please confirm your password!" },
             ]}
-            className="w-[400px] !max-[470px]:w-full"
+            className="w-full max-w-[400px]"
           >
             <div
               className={`h-[40px] w-full rounded-md border transition-all hover:border-[#46a358] ${
@@ -124,14 +124,14 @@ const Register = () => {
             >
               <Input.Password
                 placeholder="Confirm Password"
-                className="!h-full !w-full !border-none focus:!shadow-none"
+                className="h-full w-full border-none focus:shadow-none"
                 onFocus={() => setConfirmFocus(true)}
                 onBlur={() => setConfirmFocus(false)}
               />
             </div>
           </Form.Item>
 
-          <Form.Item className="w-full">
+          <Form.Item className="w-full max-w-[400px]">
             <button
               type="submit"
               className="bg-[#46a358] text-white w-full h-[40px] rounded-md text-[18px] mt-3 flex items-center justify-center"
@@ -143,9 +143,9 @@ const Register = () => {
         </Form>
 
         <div className="flex items-center justify-center mb-5 mt-5 gap-4">
-          <div className="w-[30%] h-[2px] max-[350px]:w-[25%] bg-[#eaeaea]"></div>
+          <div className="w-[30%] h-[2px] max-[350px]:w-[17%] bg-[#eaeaea]"></div>
           <p className="text-[#3D3D3D] text-[14px]">Or Register with</p>
-          <div className="w-[30%] h-[2px] max-[350px]:w-[25%] bg-[#eaeaea]"></div>
+          <div className="w-[30%] h-[2px] max-[350px]:w-[17%] bg-[#eaeaea]"></div>
         </div>
 
         <div className="flex items-center justify-center flex-col gap-3">
