@@ -1,8 +1,15 @@
 import { Slider } from "antd";
 import { useState } from "react";
+import useSearchHandlerParams from "../../../../hook/useSeachParams";
 
 const Price = () => {
-  const [price, setPrice] = useState<number[]>([0, 1000]);
+  const { setParam, getParam } = useSearchHandlerParams();
+  const range_min = getParam("range_min") || 0;
+  const range_max = getParam("range_max") || 1000;
+  const category = getParam("category") || "house-plants";
+  const sort = getParam("sort") || "default-sorting";
+  const type = getParam("type") || "all-plants";
+  const [price, setPrice] = useState<number[]>([+range_min, +range_max]);
 
   return (
     <div className="w-full mt-4">
@@ -26,7 +33,20 @@ const Price = () => {
           </h2>
         </div>
       </div>
-      <button  className="mt-3 w-[90px] h-[35px] flex items-center justify-center bg-[#46a358] text-white font-bold text-[16px] rounded-lg">Filter</button>
+      <button
+        onClick={() =>
+          setParam({
+            category,
+            range_min: price[0],
+            range_max: price[1],
+            sort,
+            type,
+          })
+        }
+        className="mt-3 w-[90px] h-[35px] flex items-center justify-center bg-[#46a358] text-white font-bold text-[16px] rounded-lg"
+      >
+        Filter
+      </button>
     </div>
   );
 };

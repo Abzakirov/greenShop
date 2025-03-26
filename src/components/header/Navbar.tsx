@@ -1,6 +1,4 @@
 import { useState } from "react";
-
-// components
 import Search from "../../icons/Search";
 import Shops from "../../icons/Shop";
 import Badges from "../../gen/badge/Badge";
@@ -8,31 +6,27 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { useReduxDispatch } from "../../hook/useRedux";
 import { setModalAutchorization } from "../../store/modalSlice/Modal";
 import LikeBadge from "../../gen/badge/like";
-
-
-// icons
 import { CiLogin } from "react-icons/ci";
 import { IoMenuOutline, IoCloseSharp } from "react-icons/io5";
 import { HeartOutlined } from "@ant-design/icons";
-
-// images
 import Logo from "../../assets/logo.png";
-
+import { cookieInfo } from "../../gen/cookie";
 
 const Navbar: React.FC = () => {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
   const dispatch = useReduxDispatch();
-  const user = JSON.parse(localStorage.getItem("user") as string);
   const navigate = useNavigate();
+  const { isAuthorization, getCookie } = cookieInfo();
+  const user = isAuthorization ? getCookie("user") : null;
 
   return (
     <div>
       <header className="container2 borders">
         <div className="flex items-center justify-between !max-[300px]:gap-4 !gap-5">
-          <div className="!w-[100px]">
+          <button onClick={()=>navigate("/")} className="!w-[100px]">
             <img src={Logo} alt="Logo" />
-          </div>
+          </button>
           <nav className="items-center max-[709px]:hidden">
             <div className="flex items-center gap-5">
               {[
@@ -68,11 +62,14 @@ const Navbar: React.FC = () => {
               </LikeBadge>
             </div>
             <button
-              onClick={() => dispatch(setModalAutchorization())}
+              onClick={() => {
+                isAuthorization
+                  ? navigate("profile")
+                  : dispatch(setModalAutchorization());
+              }}
               className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2 max-[550px]:hidden"
-              disabled={!!user}
             >
-              {user ? (
+              {isAuthorization ? (
                 user?.name
               ) : (
                 <>
@@ -89,7 +86,6 @@ const Navbar: React.FC = () => {
           </div>
         </div>
       </header>
-
       <div
         className={`fixed top-0 left-0 w-full min-h-screen bg-green-500 z-50 flex flex-col items-center justify-center transition-all duration-300 ease-in-out ${
           open
@@ -119,11 +115,15 @@ const Navbar: React.FC = () => {
           <NavLink to="/blogs" className="text-[#fff] text-[16px] font-sans">
             Blogs
           </NavLink>
-          <button   onClick={() => dispatch(setModalAutchorization())}
-          className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2"
-          disabled={!!user}
+          <button
+         onClick={() => {
+          isAuthorization
+            ? navigate("profile")
+            : dispatch(setModalAutchorization());
+        }}
+            className="flex items-center justify-center gap-3 text-white text-[16px] w-[100px] h-[35px] bg-[#46A358] rounded-[6px] p-2"
           >
-            {user ? (
+            {isAuthorization ? (
               user?.name
             ) : (
               <>

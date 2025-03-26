@@ -4,11 +4,14 @@ import { useReduxDispatch } from "../../useRedux";
 import { setModalAutchorization } from "../../../store/modalSlice/Modal";
 import NotificationApi from "../../../gen/notification";
 import { signInWithGoogle } from "../../../config";
+import { cookieInfo } from "../../../gen/cookie";
 
 const useLoginMutation = () => {
     const { request } = useAxios();
     const dispatch = useReduxDispatch();
-    const notify = NotificationApi()
+    const notify = NotificationApi();
+    const { setCookie } = cookieInfo();
+
     return useMutation({
         mutationFn: async ({ data }: { data: object }) => {
             try {
@@ -16,29 +19,27 @@ const useLoginMutation = () => {
                     url: "user/sign-in",
                     body: data,
                     method: "POST",
-
                 });
                 return response;
-            } catch (error) {
+            } catch (error: any) {
                 console.error("Login error:", error);
+                if (error.response?.status === 409) {
+                    alert("Пользователь не найден! Пожалуйста, зарегистрируйтесь.");
+                }
                 throw error;
-            } finally {
-                "salom"
             }
         },
         onSuccess: (data) => {
-
-            let { token, user } = data
+            let { token, user } = data;
             console.log("Login successful:", data);
-            localStorage.setItem("token", token)
-            localStorage.setItem("user", JSON.stringify(user))
+            setCookie("token", token);
+            setCookie("user", user);
+            localStorage.setItem("token", token);
             console.log(user);
             console.log(token);
 
-
-            notify("login")
-            dispatch(setModalAutchorization())
-
+            notify("login");
+            dispatch(setModalAutchorization());
         },
         onError: (error) => {
             console.error("Login failed:", error);
@@ -51,7 +52,9 @@ export default useLoginMutation;
 export const useRegisterMutation = () => {
     const { request } = useAxios();
     const dispatch = useReduxDispatch();
-    const notify = NotificationApi()
+    const notify = NotificationApi();
+    const { setCookie } = cookieInfo();
+
     return useMutation({
         mutationFn: async (data: object) => {
             try {
@@ -67,14 +70,13 @@ export const useRegisterMutation = () => {
             }
         },
         onSuccess: (data) => {
-
-            let { token, user } = data
-            localStorage.setItem("token", token)
-            localStorage.setItem("user", JSON.stringify(user))
+            let { token, user } = data;
+            setCookie("token", token);
+            setCookie("user", user);
+            localStorage.setItem("token", token);
             console.log("Register successful:", data);
-            notify("register")
-            dispatch(setModalAutchorization())
-
+            notify("register");
+            dispatch(setModalAutchorization());
         },
         onError: (error) => {
             console.error("Login failed:", error);
@@ -82,11 +84,11 @@ export const useRegisterMutation = () => {
     });
 };
 
-
 export const useLoginWithGoogle = () => {
     const { request } = useAxios();
     const dispatch = useReduxDispatch();
     const notify = NotificationApi();
+    const { setCookie } = cookieInfo();
 
     return useMutation({
         mutationFn: async () => {
@@ -95,17 +97,21 @@ export const useLoginWithGoogle = () => {
 
             try {
                 return await request({ url: "user/sign-in/google", method: "POST", body: { email } });
-            } catch (error) {
+            } catch (error: any) {
                 notify(406);
                 notify(409);
+                if (error.response?.status === 409) {
+                    notify(409);
+                }
                 throw new Error("User already exists.");
             }
         },
         onSuccess: (data) => {
             const { token, user } = data;
+            setCookie("token", token);
+            setCookie("user", user);
             localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
-            console.log("Login width google successful:", data);
+            console.log("Login with Google successful:", data);
             notify("login_google");
             dispatch(setModalAutchorization());
         },
@@ -120,6 +126,7 @@ export const useRegisterWithGoogle = () => {
     const { request } = useAxios();
     const dispatch = useReduxDispatch();
     const notify = NotificationApi();
+    const { setCookie } = cookieInfo();
 
     return useMutation({
         mutationFn: async () => {
@@ -129,23 +136,24 @@ export const useRegisterWithGoogle = () => {
             try {
                 return await request({ url: "user/sign-up/google", method: "POST", body: { email } });
             } catch (error) {
-                notify(406)
-                notify(409)
+                notify(406);
+                notify(409);
                 throw new Error("User already exists.");
             }
         },
         onSuccess: (data) => {
             const { token, user } = data;
+            setCookie("token", token);
+            setCookie("user", user);
             localStorage.setItem("token", token);
-            localStorage.setItem("user", JSON.stringify(user));
             console.log("Register successful:", data);
             notify("register_google");
             dispatch(setModalAutchorization());
         },
         onError: (error) => {
             console.error("Google login error:", error);
-            notify(406)
-            notify(409)
+            notify(406);
+        
         }
     });
 };
