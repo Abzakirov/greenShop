@@ -153,7 +153,29 @@ export const useRegisterWithGoogle = () => {
         onError: (error) => {
             console.error("Google login error:", error);
             notify(406);
-        
+
         }
     });
 };
+
+
+export const useSendEmail = () => {
+    const { request } = useAxios();
+const notify = NotificationApi();
+    return useMutation({
+        mutationFn: async (data: object) => {
+            const responseData = await request({
+                url: "features/email-subscribe",
+                method: "POST",
+                body: data,
+            });
+
+
+            return responseData;
+        },
+        onSuccess: () => {
+            notify("sendEmail");
+        },
+    });
+};
+

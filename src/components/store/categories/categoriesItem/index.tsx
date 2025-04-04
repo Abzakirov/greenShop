@@ -4,11 +4,13 @@ import useSearchHandlerParams from "../../../../hook/useSeachParams";
 
 const CategoriesItem: FC<CategoryType> = (props) => {
   const { setParam, getParam } = useSearchHandlerParams();
+
   const range_min = getParam("range_min") || 0;
   const range_max = getParam("range_max") || 1000;
   const sort = getParam("sort") || "default-sorting";
   const type = getParam("type") || "all-plants";
   const category = getParam("category") || "house-plants";
+  const limit = getParam("limit") || "4"; 
 
   return (
     <button
@@ -19,6 +21,7 @@ const CategoriesItem: FC<CategoryType> = (props) => {
           range_max,
           sort,
           type,
+          limit,
         })
       }
       className={`flex items-center justify-between w-full ${
@@ -26,14 +29,14 @@ const CategoriesItem: FC<CategoryType> = (props) => {
       }`}
     >
       <h3
-        className={`   ${
+        className={`${
           category === props.route_path && "font-[700] !text-[#46a358] underline"
         } text-[#3d3d3d]`}
       >
         {props?.title}
       </h3>
       <h3
-        className={`   ${
+        className={`${
           category === props.route_path && "font-[700] !text-[#46a358] underline"
         } text-[#3d3d3d]`}
       >

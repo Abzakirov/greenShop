@@ -1,16 +1,20 @@
-import { useSearchParams } from "react-router-dom"
-
-
+import { useSearchParams } from "react-router-dom";
 
 const useSearchHandlerParams = () => {
-    const [params, setParams] = useSearchParams()
-    const getParam = (path: string) => params.get(path)
-    const setParam = (params: object) => {
-        setParams({
-            ...params
-        })
-    }
-    return { getParam, setParam }
-}
+  const [params, setParams] = useSearchParams();
 
-export default useSearchHandlerParams
+  const getParam = (key: string) => params.get(key);
+
+  const setParam = (newParams: object) => {
+    setParams((prev) => ({
+      ...Object.fromEntries(prev.entries()), 
+      page: "1", 
+      limit: prev.get("limit") || "4", 
+      ...newParams,
+    }));
+  };
+
+  return { getParam, setParam };
+};
+
+export default useSearchHandlerParams;

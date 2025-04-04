@@ -66,3 +66,26 @@ export interface CardType {
     _id: string,
     detailed_images: string[]
 }
+
+export interface BlogContentType {
+    id: number,
+    title: string,
+    descr: string,
+    btn: string,
+    img: string,
+}
+
+export interface PostItemsType {
+    id: number,
+    img: string,
+    items: string,
+    title: string,
+    descr: string,
+    more: string
+}
+export interface CardItemsType {
+    id: number,
+    img: string,
+    title: string,
+    descr: string,
+}

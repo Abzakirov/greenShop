@@ -1,7 +1,7 @@
 import { Select } from "antd";
 import { titleCategory } from "../../../../utils";
 import useSearchHandlerParams from "../../../../hook/useSeachParams";
-import {  UnorderedListOutlined } from "@ant-design/icons";
+import { UnorderedListOutlined } from "@ant-design/icons";
 import CategoryModal from "../../categories/CategoryModal";
 import { useState } from "react";
 
@@ -12,9 +12,10 @@ const ProductsTopBar = () => {
   const category = getParam("category") || "house-plants";
   const sort = getParam("sort") || "default-sorting";
   const type = getParam("type") || "all-plants";
+  const limit = getParam("limit") || "4"; 
 
   const handleChange = (value: string) => {
-    setParam({ category, range_min, range_max, sort: value, type });
+    setParam({ category, range_min, range_max, sort: value, type, limit });
   };
 
   const [open, setOpen] = useState(false);
@@ -32,6 +33,7 @@ const ProductsTopBar = () => {
                   range_max,
                   sort,
                   type: item.label,
+                  limit,
                 })
               }
               key={item.id}

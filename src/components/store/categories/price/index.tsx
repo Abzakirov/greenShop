@@ -4,11 +4,13 @@ import useSearchHandlerParams from "../../../../hook/useSeachParams";
 
 const Price = () => {
   const { setParam, getParam } = useSearchHandlerParams();
+
   const range_min = getParam("range_min") || 0;
   const range_max = getParam("range_max") || 1000;
   const category = getParam("category") || "house-plants";
   const sort = getParam("sort") || "default-sorting";
   const type = getParam("type") || "all-plants";
+
   const [price, setPrice] = useState<number[]>([+range_min, +range_max]);
 
   return (
@@ -24,13 +26,9 @@ const Price = () => {
       <div className="flex items-center gap-2 mt-2">
         <h2 className="!text-[#3d3d3d] !text-[18px] !font-medium">Price:</h2>
         <div className="flex items-center gap-[3px] ">
-          <h2 className="text-[#46A358] text-[15px] font-medium">
-            ${price[0]}
-          </h2>
+          <h2 className="text-[#46A358] text-[15px] font-medium">${price[0]}</h2>
           <h2 className="w-[10px] h-[1px] bg-[#46A358]"></h2>
-          <h2 className="text-[#46A358] text-[15px] font-medium">
-            ${price[1]}
-          </h2>
+          <h2 className="text-[#46A358] text-[15px] font-medium">${price[1]}</h2>
         </div>
       </div>
       <button

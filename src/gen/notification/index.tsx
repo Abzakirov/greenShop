@@ -6,7 +6,8 @@ type NotificationApiType =
   | "login_google"
   | 406
   | 409
-  | "register_google";
+  | "register_google"
+  | "sendEmail";
 
 const NotificationApi = () => {
   const notify = (type: NotificationApiType) => {
@@ -23,6 +24,8 @@ const NotificationApi = () => {
         return notification.error({ message: "Email already exsit " });
         case "register_google":
           return notification.success({ message: "Register width  successful" });
+          case "sendEmail":
+            return notification.success({ message: "Email successfully added to our daily newsletters." });
       default:
         return;
     }
